@@ -1,0 +1,2 @@
+2025-03-20 22:28:28 [INFO]: GET /api/users - ::1
+2025-03-20 22:28:28 [ERROR]: Invalid/Expired token - GET /api/users - ::1
