@@ -26,6 +26,13 @@ mongoose.connect(process.env.MONGODB_URI, {
     console.error('Database connection error:', error.message);
   });
 
+  // Log all incoming requests
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.originalUrl} - ${req.ip}`);
+  next();
+});
+
+
 // Routes
 app.use('/api/users', userRoutes);
 

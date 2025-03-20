@@ -1,16 +1,19 @@
-const { createLogger, format, transports} = require('winston');
+const { createLogger, format, transports } = require('winston');
 
-//Create a Winston Logger
 const logger = createLogger({
-    level: 'info',
-    format: format.combine(
-        format.timestamp(),
-        format.errors({stack: true}),
-        format.json()
-    ),
-    transports: [
-        new transports.Console({ format: format.simple()}),
-        new transports.File({ filename: 'error.log', level: 'error'}), //log errors to a file
-        new transports.File({ filename: 'combined.log'}), //Log all levels
-    ],
+  level: 'info', // Default logging level
+  format: format.combine(
+    format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+    format.printf(({ timestamp, level, message }) => {
+      return `${timestamp} [${level.toUpperCase()}]: ${message}`;
+    })
+  ),
+  transports: [
+    new transports.Console(), // Logs in console
+    new transports.File({ filename: 'logs/error.log', level: 'error' }), // Error logs
+    new transports.File({ filename: 'logs/combined.log' }) // All logs
+  ]
 });
+
+module.exports = logger;
+
